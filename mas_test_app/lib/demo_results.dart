@@ -1,9 +1,8 @@
-import 'package:flutter/foundation.dart';
 import 'package:logging/logging.dart';
 
 final log = Logger('MASTestAppLogger');
 
-class DemoResults with ChangeNotifier {
+class DemoResults {
   final String demoId;
   List<DemoResult> demoResults = [];
 
@@ -29,7 +28,6 @@ class DemoResults with ChangeNotifier {
         log.severe('MASTG-DEMO-$demoId failed: $message');
         break;
     }
-    notifyListeners();
   }
 }
 

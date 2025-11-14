@@ -58,7 +58,7 @@ class MyHomePage extends StatelessWidget {
                     child: ElevatedButton(
                       onPressed: () {
                         var result = context.read<Result>();
-                        result.update(MastgTest().mastgTest());
+                        result.update(MastgTest().mastgTest().demoResults);
                       },
                       style: ElevatedButton.styleFrom(
                         backgroundColor: Colors.transparent,
@@ -83,29 +83,29 @@ class MyHomePage extends StatelessWidget {
               child: Column(
                 children: [
                   Consumer<Result>(
-                    builder: (context, demoResult, child) => RichText(
-                      text: TextSpan(
-                        children: demoResult.demoResults.demoResults.map((
-                          result,
-                        ) {
-                          Color color;
-                          switch (result.status) {
-                            case Status.pass:
-                              color = Colors.green;
-                              break;
-                            case Status.fail:
-                              color = Colors.orange;
-                              break;
-                            case Status.error:
-                              color = Colors.red;
-                              break;
-                          }
-                          return TextSpan(
-                            text: '${result.status.name}: ${result.message}\n',
+                    builder: (context, demoResult, child) => Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: demoResult.demoResults.map((result) {
+                        Color color;
+                        switch (result.status) {
+                          case Status.pass:
+                            color = Colors.green;
+                            break;
+                          case Status.fail:
+                            color = Colors.orange;
+                            break;
+                          case Status.error:
+                            color = Colors.red;
+                            break;
+                        }
+                        return Padding(
+                          padding: const EdgeInsets.symmetric(vertical: 8.0),
+                          child: Text(
+                            '${result.status.name}: ${result.message}',
                             style: TextStyle(color: color, fontSize: 14),
-                          );
-                        }).toList(),
-                      ),
+                          ),
+                        );
+                      }).toList(),
                     ),
                   ),
                 ],
