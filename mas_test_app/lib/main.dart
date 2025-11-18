@@ -29,89 +29,74 @@ class MyHomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      //appBar: AppBar(title: const Text('MAS Test App')),
-      body: Center(
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.center,
-          mainAxisAlignment: MainAxisAlignment.start,
-          mainAxisSize: MainAxisSize.max,
-          children: [
-            Padding(
-              padding: const EdgeInsets.symmetric(
-                horizontal: 16.0,
-                vertical: 8.0,
-              ),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Text(
-                    'OWASP MAS',
-                    style: Theme.of(context).textTheme.titleMedium,
-                  ),
-                  Container(
-                    decoration: BoxDecoration(
-                      gradient: const LinearGradient(
-                        colors: [Color(0xFF02D6A9), Color(0xFF479FFF)],
-                      ),
-                      borderRadius: BorderRadius.circular(30),
-                    ),
-                    child: ElevatedButton(
-                      onPressed: () {
-                        var result = context.read<Result>();
-                        result.update(MastgTest().mastgTest().demoResults);
-                      },
-                      style: ElevatedButton.styleFrom(
-                        backgroundColor: Colors.transparent,
-                        shadowColor: Colors.transparent,
-                        foregroundColor: Colors.white,
-                      ),
-                      child: const Text('Start'),
-                    ),
-                  ),
-                ],
-              ),
-            ),
-            Container(
-              width: double.infinity,
-              margin: const EdgeInsets.fromLTRB(16.0, 0.0, 16.0, 16.0),
+      appBar: AppBar(
+        title: const Text('OWASP MAS'),
+        actions: [
+          Padding(
+            padding: const EdgeInsets.only(right: 16.0, top: 8.0, bottom: 8.0),
+            child: Container(
               decoration: BoxDecoration(
-                color: Color(0xFF444444),
-                border: Border.all(color: Colors.grey),
-                borderRadius: BorderRadius.circular(8),
+                gradient: const LinearGradient(
+                  colors: [Color(0xFF02D6A9), Color(0xFF479FFF)],
+                ),
+                borderRadius: BorderRadius.circular(30),
               ),
-              padding: const EdgeInsets.all(16.0),
-              child: Column(
-                children: [
-                  Consumer<Result>(
-                    builder: (context, demoResult, child) => Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: demoResult.demoResults.map((result) {
-                        Color color;
-                        switch (result.status) {
-                          case Status.pass:
-                            color = Colors.green;
-                            break;
-                          case Status.fail:
-                            color = Colors.orange;
-                            break;
-                          case Status.error:
-                            color = Colors.red;
-                            break;
-                        }
-                        return Padding(
-                          padding: const EdgeInsets.symmetric(vertical: 8.0),
-                          child: Text(
-                            '${result.status.name}: ${result.message}',
-                            style: TextStyle(color: color, fontSize: 14),
-                          ),
-                        );
-                      }).toList(),
-                    ),
-                  ),
-                ],
+              child: ElevatedButton(
+                onPressed: () {
+                  var result = context.read<Result>();
+                  result.update(MastgTest().mastgTest().demoResults);
+                },
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: Colors.transparent,
+                  shadowColor: Colors.transparent,
+                  foregroundColor: Colors.white,
+                ),
+                child: const Text('Start'),
               ),
             ),
-          ],
+          ),
+        ],
+      ),
+      body: Center(
+        child: Container(
+          width: double.infinity,
+          margin: const EdgeInsets.fromLTRB(16.0, 0.0, 16.0, 16.0),
+          decoration: BoxDecoration(
+            color: Color(0xFF444444),
+            border: Border.all(color: Colors.grey),
+            borderRadius: BorderRadius.circular(8),
+          ),
+          padding: const EdgeInsets.all(16.0),
+          child: Column(
+            children: [
+              Consumer<Result>(
+                builder: (context, demoResult, child) => Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: demoResult.demoResults.map((result) {
+                    Color color;
+                    switch (result.status) {
+                      case Status.pass:
+                        color = Colors.green;
+                        break;
+                      case Status.fail:
+                        color = Colors.orange;
+                        break;
+                      case Status.error:
+                        color = Colors.red;
+                        break;
+                    }
+                    return Padding(
+                      padding: const EdgeInsets.symmetric(vertical: 8.0),
+                      child: Text(
+                        '${result.status.name}: ${result.message}',
+                        style: TextStyle(color: color, fontSize: 14),
+                      ),
+                    );
+                  }).toList(),
+                ),
+              ),
+            ],
+          ),
         ),
       ),
     );
