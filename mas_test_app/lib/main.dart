@@ -42,9 +42,10 @@ class MyHomePage extends StatelessWidget {
                 borderRadius: BorderRadius.circular(30),
               ),
               child: ElevatedButton(
-                onPressed: () {
+                onPressed: () async {
                   var result = context.read<Result>();
-                  result.update(MastgTest().mastgTest().demoResults);
+                  var testResults = await MastgTest().mastgTest();
+                  result.update(testResults.demoResults);
                 },
                 style: ElevatedButton.styleFrom(
                   backgroundColor: Colors.transparent,
